@@ -37,7 +37,8 @@ func scrapeGitHub() ScrapedData {
 
 	github := "github.com"
 	url := "https://github.com/%s"
-	users := []string{"jbampton", "ugifractal", "giacomosorbi", "tsara27", "udha", "prestonhunter", "petraruttiger"}
+	users := []string{"jbampton", "ugifractal", "giacomosorbi", "tsara27", "scottyrs", "udha", "prestonhunter",
+		"petraruttiger", "grfxwzdesigner", "summerhill5"}
 	var ret = make([][]string, len(users))
 	var record []string
 
