@@ -1,151 +1,149 @@
 <!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#" dir="ltr">
-<head>
-    <title>Go Games</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Go Games - a Golang based Game website">
-    <meta name="keywords" content="Go,Golang,Games">
-    <meta name="author" content="Go Games">
-    <meta property="fb:app_id" content="">
-    <meta property="og:description" content="Golang powered website Game">
-    <!--
-            <meta property="og:image" content="">
-            <meta property="og:image:width" content="">
-            <meta property="og:image:height" content="">
-            <meta property="og:image:alt" content="">
-    -->
-    <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="Go Games">
-    <meta property="og:title" content="Go Games">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://go-games.herokuapp.com/">
-    <!-- how do these video work ??? -->
-    <!--
-    <meta property="og:video" content="">
-    <meta property="og:video:secure_url" content="">
-    <meta property="og:video:width" content="800">
-    <meta property="og:video:height" content="600">
-    <meta property="og:video:type" content="application/x-shockwave-flash">
-    -->
+    <head>
+        <title>Go Games</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Go Games - a Golang based Game website">
+        <meta name="keywords" content="Go,Golang,Games">
+        <meta name="author" content="Go Games">
+        <meta property="fb:app_id" content="">
+        <meta property="og:description" content="Golang powered website Game">
+        <!--
+                <meta property="og:image" content="">
+                <meta property="og:image:width" content="">
+                <meta property="og:image:height" content="">
+                <meta property="og:image:alt" content="">
+        -->
+        <meta property="og:locale" content="en_US">
+        <meta property="og:site_name" content="Go Games">
+        <meta property="og:title" content="Go Games">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://go-games.herokuapp.com/">
+        <!-- how do these video work ??? -->
+        <!--
+        <meta property="og:video" content="">
+        <meta property="og:video:secure_url" content="">
+        <meta property="og:video:width" content="800">
+        <meta property="og:video:height" content="600">
+        <meta property="og:video:type" content="application/x-shockwave-flash">
+        -->
 
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-    <!-- materialize stylesheet & icon font -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- materialize theme -->
-    <link rel="stylesheet" href="/static/css/theme.materialize.css">
+        <link rel="stylesheet" type="text/css" href="/static/main.css">
+        <link rel="stylesheet" href="/static/css/theme.grey.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <!-- tablesorter plugin -->
-    <script src="/static/js/jquery.tablesorter.js"></script>
-    <!-- tablesorter widget file - loaded after the plugin -->
-    <script src="/static/js/jquery.tablesorter.widgets.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <!-- tablesorter plugin -->
+        <script src="/static/js/jquery.tablesorter.js"></script>
+        <!-- tablesorter widget file - loaded after the plugin -->
+        <script src="/static/js/jquery.tablesorter.widgets.js"></script>
 
-    <!-- pager plugin -->
-    <link rel="stylesheet" href="/static/css/jquery.tablesorter.pager.css">
-    <script src="/static/js/jquery.tablesorter.pager.js"></script>
-    <script>
-        $(function() {
+        <!-- pager plugin -->
+        <link rel="stylesheet" href="/static/css/jquery.tablesorter.pager.css">
+        <script src="/static/js/jquery.tablesorter.pager.js"></script>
+        <script>
+            $(function() {
 
-            $("table").tablesorter({
-                theme : "materialize",
+                $("table").tablesorter({
+                    theme : "grey",
 
-                widthFixed: true,
-                // widget code contained in the jquery.tablesorter.widgets.js file
-                // use the zebra stripe widget if you plan on hiding any rows (filter widget)
-                widgets : [ "filter", "zebra" ],
+                    widthFixed: true,
+                    // widget code contained in the jquery.tablesorter.widgets.js file
+                    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+                    widgets : [ "filter", "zebra", "columns" ],
 
-                widgetOptions : {
-                    // using the default zebra striping class name, so it actually isn't included in the theme variable above
-                    // this is ONLY needed for materialize theming if you are using the filter widget, because rows are hidden
-                    zebra : ["even", "odd"],
+                    widgetOptions : {
+                        // using the default zebra striping class name, so it actually isn't included in the theme variable above
+                        // this is ONLY needed for materialize theming if you are using the filter widget, because rows are hidden
+                        zebra : ["even", "odd"],
 
-                    // reset filters button
-                    filter_reset : ".reset",
+                        // reset filters button
+                        filter_reset : ".reset",
 
-                    // extra css class name (string or array) added to the filter element (input or select)
-                    // select needs a "browser-default" class or it gets hidden
-                    filter_cssFilter: ["", "", "browser-default"]
-                }
-            })
-                    .tablesorterPager({
+                        // extra css class name (string or array) added to the filter element (input or select)
+                        // select needs a "browser-default" class or it gets hidden
+                        filter_cssFilter: ["", "", "browser-default"]
+                    }
+                })
+                        .tablesorterPager({
 
-                        // target the pager markup - see the HTML block below
-                        container: $(".ts-pager"),
+                            // target the pager markup - see the HTML block below
+                            container: $(".ts-pager"),
 
-                        // target the pager page select dropdown - choose a page
-                        cssGoto  : ".pagenum",
+                            // target the pager page select dropdown - choose a page
+                            cssGoto  : ".pagenum",
 
-                        // remove rows from the table to speed up the sort of large tables.
-                        // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-                        removeRows: false,
+                            // remove rows from the table to speed up the sort of large tables.
+                            // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+                            removeRows: false,
 
-                        // output string - default is '{page}/{totalPages}';
-                        // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
-                        output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+                            // output string - default is '{page}/{totalPages}';
+                            // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+                            output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
 
-                    });
+                        });
 
-        });
-    </script>
-</head>
-<body>
-    <h1>Go Games</h1>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Contributions</th>
-                    <th>Repositories</th>
-                    <th>Stars</th>
-                    <th>Followers</th>
-                    <th>Following</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>User</th>
-                    <th>Contributions</th>
-                    <th>Repositories</th>
-                    <th>Stars</th>
-                    <th>Followers</th>
-                    <th>Following</th>
-                </tr>
+            });
+        </script>
+    </head>
+    <body>
+        <h1>
+            <a href="/">Go Games</a>
+        </h1>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Contributions</th>
+                        <th>Repositories</th>
+                        <th>Stars</th>
+                        <th>Followers</th>
+                        <th>Following</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>User</th>
+                        <th>Contributions</th>
+                        <th>Repositories</th>
+                        <th>Stars</th>
+                        <th>Followers</th>
+                        <th>Following</th>
+                    </tr>
                 <!-- include "tablesorter-ignoreRow" class for pager rows in thead -->
-                <tr class="tablesorter-ignoreRow">
-                    <th colspan="7" class="ts-pager form-horizontal">
-                        <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
-                        <button type="button" class="btn prev"><i class="small material-icons">navigate_before</i></button>
-                        <span class="pagedisplay"></span>
-                        <!-- this can be any element, including an input -->
-                        <button type="button" class="btn next"><i class="small material-icons">navigate_next</i></button>
-                        <button type="button" class="btn last"><i class="small material-icons">last_page</i></button>
-                        <select class="pagesize browser-default" title="Select page size">
-                            <option selected="selected" value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                        </select>
-                        <select class="pagenum browser-default" title="Select page number"></select>
-                    </th>
-                </tr>
-            </tfoot>
-            <tbody>
-                {{range .Data}}
-                <tr>
-                    {{range . }}
-                        <td>
-                        {{.}}
-                        </td>
+                    <tr class="tablesorter-ignoreRow">
+                        <th colspan="7" class="ts-pager form-horizontal">
+                            <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
+                            <button type="button" class="btn prev"><i class="small material-icons">navigate_before</i></button>
+                            <span class="pagedisplay"></span>
+                            <!-- this can be any element, including an input -->
+                            <button type="button" class="btn next"><i class="small material-icons">navigate_next</i></button>
+                            <button type="button" class="btn last"><i class="small material-icons">last_page</i></button>
+                            <select class="pagesize browser-default" title="Select page size">
+                                <option selected="selected" value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                            </select>
+                            <select class="pagenum browser-default" title="Select page number"></select>
+                        </th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {{range .Data}}
+                        <tr>
+                        {{range . }}
+                            <td>
+                                {{.}}
+                            </td>
+                        {{end}}
+                        </tr>
                     {{end}}
-                </tr>
-                {{end}}
-            </tbody>
-        </table>
-    </div>
-</body>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>
