@@ -56,7 +56,7 @@ func scrapeGitHub() ScrapedData {
 	})
 
 	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL)
+		//fmt.Println("Visiting", r.URL)
 	})
 
 	c.OnError(func(_ *colly.Response, err error) {
@@ -77,7 +77,6 @@ func scrapeGitHub() ScrapedData {
 		c.Visit(fmt.Sprintf(url, user))
 		ret[i] = record
 		record = nil
-
 	}
 	d := ScrapedData{Data: ret}
 	return d
