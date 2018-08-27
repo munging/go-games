@@ -35,7 +35,7 @@ func main() {
 	router.Run(":" + port)
 }
 
-func asNumber(input string) float64 {	
+func asNumber(input string) float64 {
 	var str string = strings.TrimSpace(input)
 	if strings.HasSuffix(str, "k") {
 		str = strings.Replace(str, "k", "",1)
@@ -154,6 +154,12 @@ func scrapeGitHub() ScrapedData {
 
 		if len(row) == 2 {
 			co.Visit(fmt.Sprintf(codewarsurl, row[1]))
+			if len(record) == 9 {
+				record = append(record, "","")
+				copy(record[i+2:], record[i:])
+				record[i] = ""
+				record[i+1] = ""
+			}
 		} else {
 			record = append(record, "","","","","")
 		}
