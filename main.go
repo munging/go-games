@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"io/ioutil"
 )
 
 type ScrapedData struct {
@@ -37,8 +38,13 @@ func scrapeGitHub() ScrapedData {
 
 	github := "github.com"
 	url := "https://github.com/%s"
-	users := []string{"jbampton", "ugifractal", "giacomosorbi", "tsara27", "scottyrs", "udha", "prestonhunter",
-		"petraruttiger", "grfxwzdesigner", "summerhill5"}
+
+	b, err := ioutil.ReadFile("data/users.csv") // just pass the file name
+	if err != nil {
+		fmt.Print(err)
+	}
+	users := strings.Split(string(b),"\n")
+
 	var ret = make([][]string, len(users))
 	var record []string
 
@@ -64,7 +70,7 @@ func scrapeGitHub() ScrapedData {
 	})
 
 	c.OnHTML("div[class='js-yearly-contributions'] h2[class='f4 text-normal mb-2']", func(e *colly.HTMLElement) {
-		pos := strings.Index(e.Text, " contributions")
+		pos := strings.Index(e.Text, " contribution")
 		record = append(record, e.Text[0:pos])
 	})
 
