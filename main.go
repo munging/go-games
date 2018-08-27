@@ -108,9 +108,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codewars.com/*",
 		// Set a delay between requests to these domains
-		Delay: 2 * time.Second,
+		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 2 * time.Second,
+		RandomDelay: 4 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -155,10 +155,11 @@ func scrapeGitHub() ScrapedData {
 		if len(row) == 2 {
 			co.Visit(fmt.Sprintf(codewarsurl, row[1]))
 			if len(record) == 9 {
-				record = append(record, "","")
-				copy(record[i+2:], record[i:])
-				record[i] = ""
-				record[i+1] = ""
+				end := record[8]
+				record = append(record, "", "")
+				record[8] = ""
+				record[9] = ""
+				record[10] = end
 			}
 		} else {
 			record = append(record, "","","","","")
