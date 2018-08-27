@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 	"io/ioutil"
+	"strconv"
 )
 
 type ScrapedData struct {
@@ -32,6 +33,21 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", d)
 	})
 	router.Run(":" + port)
+}
+
+func asNumber(input string) float64 {	
+	var str string = strings.TrimSpace(input)
+	if strings.HasSuffix(str, "k") {
+		str = strings.Replace(str, "k", "",1)
+		val, _ := strconv.ParseFloat(str, 32)
+		return val * 1000
+	}else if strings.HasSuffix(str, "K") {
+		str = strings.Replace(str, "K", "",1)
+		val, _ := strconv.ParseFloat(str, 32)
+		return val * 1000
+	}
+	val, _ := strconv.ParseFloat(str, 32)
+	return  val
 }
 
 func scrapeGitHub() ScrapedData {
@@ -75,7 +91,8 @@ func scrapeGitHub() ScrapedData {
 	})
 
 	c.OnHTML("nav > a[aria-selected='false'] > span", func(e *colly.HTMLElement) {
-		record = append(record, e.Text)
+		number := asNumber(e.Text)
+		record = append(record, strconv.FormatFloat(number, 'f', 0, 32))
 	})
 
 	for i, user := range users {
