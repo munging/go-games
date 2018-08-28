@@ -1,14 +1,22 @@
-# go-games
+# Go Games
 
-go-games is a sample GO application to scrape several data from github based on github username.
+**`go-games`** is a sample GO application to scrape data from GitHub and Codewars based on usernames.
 
 ### Pulled Data
 
-1. Contributions
-2. Repositories
-3. Stars
-4. Followers
-5. Following
+Data comes from GitHub 1-6 and Codewars 7-11.
+
+1. User
+2. Contributions
+3. Repositories
+4. Stars
+5. Followers
+6. Following
+7. Rank
+8. Honor
+9. Leaderboard Position
+10. Honor Percentile
+11. Total Completed Kata
 
 ### Installing and Running
 ```
