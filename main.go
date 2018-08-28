@@ -76,9 +76,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "github.com/*",
 		// Set a delay between requests to these domains
-		Delay: 5 * time.Second,
+		Delay: 9 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 5 * time.Second,
+		RandomDelay: 9 * time.Second,
 	})
 
 	c.OnRequest(func(r *colly.Request) {
@@ -110,7 +110,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 8 * time.Second,
+		RandomDelay: 9 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
