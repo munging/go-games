@@ -35,6 +35,15 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                window.setInterval(function(){
+                    var r = Math.floor(Math.random() * 14);
+                    $("#logo").attr("src", "/static/images/logos/go-games-"+ r +".png")
+                }, 9000);
+            });
+        </script>
+
         <!-- tablesorter plugin -->
         <script src="/static/js/jquery.tablesorter.js"></script>
         <!-- tablesorter widget file - loaded after the plugin -->
@@ -89,9 +98,13 @@
         </script>
     </head>
     <body>
-        <h1>
-            <a href="/">Go Games</a>
-        </h1>
+        <header>
+            <nav>
+                <a href="/">
+                    <img alt="Go Games" id="logo" title="Go Games" src="/static/images/logos/go-games-1.png">
+                </a>
+            </nav>
+        </header>
         <div>
             <table>
                 <thead>
@@ -102,7 +115,6 @@
                         <th>Stars</th>
                         <th>Followers</th>
                         <th>Following</th>
-
                         <th>Rank</th>
                         <th>Honor</th>
                         <th>Leaderboard Position</th>
@@ -118,14 +130,13 @@
                         <th>Stars</th>
                         <th>Followers</th>
                         <th>Following</th>
-
                         <th>Rank</th>
                         <th>Honor</th>
                         <th>Leaderboard Position</th>
                         <th>Honor Percentile</th>
                         <th>Total Completed Kata</th>
                     </tr>
-                <!-- include "tablesorter-ignoreRow" class for pager rows in thead -->
+                    <!-- include "tablesorter-ignoreRow" class for pager rows in thead -->
                     <tr class="tablesorter-ignoreRow">
                         <th colspan="11" class="ts-pager form-horizontal">
                             <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
@@ -147,11 +158,11 @@
                 <tbody>
                     {{range .Data}}
                         <tr>
-                        {{range . }}
-                            <td>
-                                {{.}}
-                            </td>
-                        {{end}}
+                            {{range . }}
+                                <td>
+                                    {{.}}
+                                </td>
+                            {{end}}
                         </tr>
                     {{end}}
                 </tbody>
