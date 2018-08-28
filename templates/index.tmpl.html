@@ -36,7 +36,7 @@
         <script>
             $(document).ready(function() {
                 window.setInterval(function(){
-                    var r = Math.floor(Math.random() * 14);
+                    var r = Math.floor(Math.random() * 21);
                     $("#logo").attr("src", "/static/images/logos/go-games-"+ r +".png")
                 }, 9000);
             });
@@ -107,36 +107,42 @@
             <table>
                 <thead>
                     <tr>
-                        <th>User</th>
+                        <th>GitHub User</th>
                         <th>Contributions</th>
                         <th>Repositories</th>
                         <th>Stars</th>
                         <th>Followers</th>
                         <th>Following</th>
-                        <th>Rank</th>
+                        <th>CodeWars Rank</th>
                         <th>Honor</th>
                         <th>Leaderboard Position</th>
                         <th>Honor Percentile</th>
                         <th>Total Completed Kata</th>
+                        <th>Codecademy Points</th>
+                        <th>Day Streak</th>
+                        <th>Badges</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>User</th>
+                        <th>GitHub User</th>
                         <th>Contributions</th>
                         <th>Repositories</th>
                         <th>Stars</th>
                         <th>Followers</th>
                         <th>Following</th>
-                        <th>Rank</th>
+                        <th>CodeWars Rank</th>
                         <th>Honor</th>
                         <th>Leaderboard Position</th>
                         <th>Honor Percentile</th>
                         <th>Total Completed Kata</th>
+                        <th>Codecademy Points</th>
+                        <th>Day Streak</th>
+                        <th>Badges</th>
                     </tr>
                     <!-- include "tablesorter-ignoreRow" class for pager rows in thead -->
                     <tr class="tablesorter-ignoreRow">
-                        <th colspan="11" class="ts-pager form-horizontal">
+                        <th colspan="14" class="ts-pager form-horizontal">
                             <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
                             <button type="button" class="btn prev"><i class="small material-icons">navigate_before</i></button>
                             <span class="pagedisplay"></span>
@@ -148,6 +154,8 @@
                                 <option value="20">20</option>
                                 <option value="30">30</option>
                                 <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
                             </select>
                             <select class="pagenum browser-default" title="Select page number"></select>
                         </th>
