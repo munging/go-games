@@ -58,6 +58,9 @@ func scrapeGitHub() ScrapedData {
 	codewars := "www.codewars.com"
 	codewarsurl := "https://www.codewars.com/users/%s"
 
+	codecademy := "www.codecademy.com"
+	codecademyurl := "https://www.codecademy.com/%s"
+
 	b, err := ioutil.ReadFile("data/users.csv") // just pass the file name
 	if err != nil {
 		fmt.Print(err)
@@ -132,8 +135,6 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, strings.TrimPrefix(strings.TrimSpace(strings.TrimPrefix(e.Text,"Leaderboard Position:")),"#"))
 	})
 
-
-
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Honor Percentile:']", func(e *colly.XMLElement) {
 		record = append(record, strings.TrimPrefix(e.Text,"Honor Percentile:"))
 	})
@@ -142,9 +143,39 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, strings.TrimPrefix(e.Text,"Total Completed Kata:"))
 	})
 
+	c1 := colly.NewCollector(
+		colly.AllowedDomains(codecademy),
+		//colly.CacheDir(""),
+	)
 
+	c1.Limit(&colly.LimitRule{
+		// Filter domains affected by this rule
+		DomainGlob:  "codecademy.com/*",
+		// Set a delay between requests to these domains
+		Delay: 9 * time.Second,
+		// Add an additional random delay
+		RandomDelay: 9 * time.Second,
+	})
 
+	c1.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting", r.URL)
+	})
 
+	c1.OnError(func(_ *colly.Response, err error) {
+		log.Println("Something went wrong:", err)
+	})
+
+	c1.OnXML("//main[starts-with(@class,'profiles')]/article[3]//h3[following-sibling::small/text()='total points']", func(e *colly.XMLElement) {
+		record = append(record, e.Text)
+	})
+
+	c1.OnXML("//main[starts-with(@class,'profiles')]/article[2]//div/article[2]//h3", func(e *colly.XMLElement) {
+		record = append(record, e.Text)
+	})
+
+	c1.OnXML("//main[starts-with(@class,'profiles')]/article[3]//h3[following-sibling::small/text()='day streak']", func(e *colly.XMLElement) {
+		record = append(record, e.Text)
+	})
 
 
 	for i, user := range users {
@@ -152,7 +183,7 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, row[0])
 		c.Visit(fmt.Sprintf(url, row[0]))
 
-		if len(row) == 2 {
+		if len(row) == 2 || len(row) == 3 {
 			co.Visit(fmt.Sprintf(codewarsurl, row[1]))
 			if len(record) == 9 {
 				end := record[8]
@@ -161,8 +192,14 @@ func scrapeGitHub() ScrapedData {
 				record[9] = ""
 				record[10] = end
 			}
-		} else {
-			record = append(record, "","","","","")
+			if len(row) == 3 {
+				c1.Visit(fmt.Sprintf(codecademyurl, row[2]))
+			} else {
+				record = append(record, "", "", "")
+			}
+		}
+		if len(row) == 1 {
+			record = append(record, "","","","","","","","")
 		}
 
 		ret[i] = record
