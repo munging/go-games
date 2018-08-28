@@ -110,7 +110,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 4 * time.Second,
+		RandomDelay: 6 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -129,7 +129,7 @@ func scrapeGitHub() ScrapedData {
 	})
 
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Leaderboard Position:']", func(e *colly.XMLElement) {
-		record = append(record, strings.TrimPrefix(e.Text,"Leaderboard Position:"))
+		record = append(record, strings.TrimPrefix(strings.TrimSpace(strings.TrimPrefix(e.Text,"Leaderboard Position:")),"#"))
 	})
 
 
