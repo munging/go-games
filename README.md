@@ -21,7 +21,7 @@ Data comes from GitHub 1-6 and Codewars 7-11.
 ### Installing and Running
 ```
 go get github.com/munging/go-games
-cd $GOPATH/github.com/src/github.com/munging/go-games
+cd $GOPATH/src/github.com/munging/go-games
 go run main.go
 ```
 
