@@ -70,6 +70,9 @@ func scrapeGitHub() ScrapedData {
 	//khanurl := "https://www.khanacademy.org/profile/%s"
 	//re2 := regexp.MustCompile("(.*\"points\": *)(\\d+)(,.*)")
 
+	pycheckio := "py.checkio.org"
+	pycheckiourl := "https://py.checkio.org/user/%s/"
+
 	b, err := ioutil.ReadFile("data/users.csv") // just pass the file name
 	if err != nil {
 		fmt.Print(err)
@@ -221,35 +224,62 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, e.Text)
 	})
 */
-/*
-	c3 := colly.NewCollector(
-		colly.AllowedDomains(khan),
+	/*
+		c3 := colly.NewCollector(
+			colly.AllowedDomains(khan),
+			//colly.CacheDir(""),
+		)
+
+		c3.Limit(&colly.LimitRule{
+			// Filter domains affected by this rule
+			DomainGlob:  "khanacademy.org/*",
+			// Set a delay between requests to these domains
+			Delay: 9 * time.Second,
+			// Add an additional random delay
+			RandomDelay: 9 * time.Second,
+		})
+
+		c3.OnRequest(func(r *colly.Request) {
+			fmt.Println("Visiting", r.URL)
+		})
+
+		c3.OnError(func(_ *colly.Response, err error) {
+			log.Println("Something went wrong:", err)
+		})
+
+		c3.OnXML("//script[contains(text(),'Profile.init')]", func(e *colly.XMLElement) {
+			record = append(record, re2.ReplaceAllString(e.Text,"${2}"))
+		})
+	*/
+	c4 := colly.NewCollector(
+		colly.AllowedDomains(pycheckio),
 		//colly.CacheDir(""),
 	)
 
-	c3.Limit(&colly.LimitRule{
+	c4.Limit(&colly.LimitRule{
 		// Filter domains affected by this rule
-		DomainGlob:  "khanacademy.org/*",
+		DomainGlob:  "py.checkio.org/*",
 		// Set a delay between requests to these domains
-		Delay: 9 * time.Second,
+		Delay: 10 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 9 * time.Second,
+		RandomDelay: 10 * time.Second,
 	})
 
-	c3.OnRequest(func(r *colly.Request) {
+	c4.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting", r.URL)
 	})
 
-	c3.OnError(func(_ *colly.Response, err error) {
+	c4.OnError(func(_ *colly.Response, err error) {
 		log.Println("Something went wrong:", err)
 	})
 
-	c3.OnXML("//script[contains(text(),'Profile.init')]", func(e *colly.XMLElement) {
-		record = append(record, re2.ReplaceAllString(e.Text,"${2}"))
+	c4.OnXML("//span[@class='profile_level_value']", func(e *colly.XMLElement) {
+		record = append(record, e.Text)
 	})
-*/
+
 
 	for i, user := range users {
+		time.Sleep(3 * time.Second)
 		po := float64(0)
 		row := strings.Split(user,",")
 		record = append(record, row[0])
@@ -265,24 +295,23 @@ func scrapeGitHub() ScrapedData {
 				record[10] = end
 			}
 			if len(row) == 2 {
-				record = append(record, "","","")
+				record = append(record, "","","","")
 			}
 			if len(row) == 3 || len(row) == 4 {
 				c1.Visit(fmt.Sprintf(codecademyurl, row[2]))
-				/*
 				if len(row) != 4 {
 					record = append(record, "")
 				}
 				if len(row) == 4 {
-					c3.Visit(fmt.Sprintf(khanurl, row[3]))
-				}*/
+					c4.Visit(fmt.Sprintf(pycheckiourl, row[3]))
+				}
 			}
 		}
 		if len(row) == 1 {
-			record = append(record, "","","","","","","","")
+			record = append(record, "","","","","","","","","")
 		}
 
-		for j:=1; j<14; j++ {
+		for j:=1; j<15; j++ {
 			if j != 5 && j != 6 && j != 8 && record[j] != "" {
 				points, _ := strconv.ParseFloat(record[j], 32)
 				po += points
