@@ -93,7 +93,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 5 * time.Second,
+		RandomDelay: 1 * time.Second,
 	})
 
 	c.OnRequest(func(r *colly.Request) {
@@ -125,7 +125,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 5 * time.Second,
+		RandomDelay: 1 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -166,7 +166,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 5 * time.Second,
+		RandomDelay: 1 * time.Second,
 	})
 
 	c1.OnRequest(func(r *colly.Request) {
@@ -262,7 +262,7 @@ func scrapeGitHub() ScrapedData {
 		// Set a delay between requests to these domains
 		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 5 * time.Second,
+		RandomDelay: 1 * time.Second,
 	})
 
 	c4.OnRequest(func(r *colly.Request) {
