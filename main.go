@@ -12,6 +12,7 @@ import (
 	"time"
 	"io/ioutil"
 	"strconv"
+	"regexp"
 )
 
 type ScrapedData struct {
@@ -57,9 +58,11 @@ func scrapeGitHub() ScrapedData {
 
 	codewars := "www.codewars.com"
 	codewarsurl := "https://www.codewars.com/users/%s"
+	re := regexp.MustCompile("st|nd|rd|th")
 
 	codecademy := "www.codecademy.com"
 	codecademyurl := "https://www.codecademy.com/%s"
+
 
 	b, err := ioutil.ReadFile("data/users.csv") // just pass the file name
 	if err != nil {
@@ -94,7 +97,7 @@ func scrapeGitHub() ScrapedData {
 
 	c.OnHTML("div[class='js-yearly-contributions'] h2[class='f4 text-normal mb-2']", func(e *colly.HTMLElement) {
 		pos := strings.Index(e.Text, " contribution")
-		record = append(record, e.Text[0:pos])
+		record = append(record, strings.Replace(e.Text[0:pos],",", "", -1))
 	})
 
 	c.OnHTML("nav > a[aria-selected='false'] > span", func(e *colly.HTMLElement) {
@@ -111,9 +114,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codewars.com/*",
 		// Set a delay between requests to these domains
-		Delay: 1 * time.Second,
+		Delay: 3 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 18 * time.Second,
+		RandomDelay: 21 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -128,19 +131,19 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, strings.TrimPrefix(e.Text,"Rank:"))
 	})
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Honor:']", func(e *colly.XMLElement) {
-		record = append(record, strings.TrimPrefix(e.Text,"Honor:"))
+		record = append(record, strings.Replace(strings.TrimPrefix(e.Text,"Honor:"),",","",-1))
 	})
 
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Leaderboard Position:']", func(e *colly.XMLElement) {
-		record = append(record, strings.TrimPrefix(strings.TrimSpace(strings.TrimPrefix(e.Text,"Leaderboard Position:")),"#"))
+		record = append(record, strings.Replace(strings.TrimPrefix(strings.TrimSpace(strings.TrimPrefix(e.Text,"Leaderboard Position:")),"#"),",","",-1))
 	})
 
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Honor Percentile:']", func(e *colly.XMLElement) {
-		record = append(record, strings.TrimPrefix(e.Text,"Honor Percentile:"))
+		record = append(record, re.ReplaceAllString(strings.TrimPrefix(e.Text,"Honor Percentile:"), ""))
 	})
 
 	co.OnXML("//div[@class='stat-box'][ancestor::div[@class='stat-container']/h2/text()='Progress']/div[@class='stat'][b/text()='Total Completed Kata:']", func(e *colly.XMLElement) {
-		record = append(record, strings.TrimPrefix(e.Text,"Total Completed Kata:"))
+		record = append(record, strings.Replace(strings.TrimPrefix(e.Text,"Total Completed Kata:"),",","",-1))
 	})
 
 	c1 := colly.NewCollector(
