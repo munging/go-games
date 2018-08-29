@@ -57,6 +57,17 @@
                 $("table").tablesorter({
                     theme : "grey",
 
+                    // The key used to select more than one column for multi-column
+                    // sorting.
+                    sortMultiSortKey: "shiftKey",
+
+                    // key used to remove sorting on a column
+                    sortResetKey: "ctrlKey",
+
+                    sortList: [ [0,0] ],
+
+                    sortInitialOrder: "desc",
+
                     widthFixed: true,
                     // widget code contained in the jquery.tablesorter.widgets.js file
                     // use the zebra stripe widget if you plan on hiding any rows (filter widget)
