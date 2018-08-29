@@ -91,9 +91,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "github.com/*",
 		// Set a delay between requests to these domains
-		Delay: 5 * time.Second,
+		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 10 * time.Second,
+		RandomDelay: 5 * time.Second,
 	})
 
 	c.OnRequest(func(r *colly.Request) {
@@ -123,9 +123,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codewars.com/*",
 		// Set a delay between requests to these domains
-		Delay: 5 * time.Second,
+		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 10 * time.Second,
+		RandomDelay: 5 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -164,9 +164,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codecademy.com/*",
 		// Set a delay between requests to these domains
-		Delay: 5 * time.Second,
+		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 10 * time.Second,
+		RandomDelay: 5 * time.Second,
 	})
 
 	c1.OnRequest(func(r *colly.Request) {
@@ -260,9 +260,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "py.checkio.org/*",
 		// Set a delay between requests to these domains
-		Delay: 5 * time.Second,
+		Delay: 1 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 10 * time.Second,
+		RandomDelay: 5 * time.Second,
 	})
 
 	c4.OnRequest(func(r *colly.Request) {
