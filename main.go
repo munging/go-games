@@ -91,7 +91,7 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "github.com/*",
 		// Set a delay between requests to these domains
-		Delay: 10 * time.Second,
+		Delay: 5 * time.Second,
 		// Add an additional random delay
 		RandomDelay: 10 * time.Second,
 	})
@@ -123,9 +123,9 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codewars.com/*",
 		// Set a delay between requests to these domains
-		Delay: 25 * time.Second,
+		Delay: 5 * time.Second,
 		// Add an additional random delay
-		RandomDelay: 35 * time.Second,
+		RandomDelay: 10 * time.Second,
 	})
 
 	co.OnRequest(func(r *colly.Request) {
@@ -164,7 +164,7 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codecademy.com/*",
 		// Set a delay between requests to these domains
-		Delay: 10 * time.Second,
+		Delay: 5 * time.Second,
 		// Add an additional random delay
 		RandomDelay: 10 * time.Second,
 	})
@@ -260,7 +260,7 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "py.checkio.org/*",
 		// Set a delay between requests to these domains
-		Delay: 10 * time.Second,
+		Delay: 5 * time.Second,
 		// Add an additional random delay
 		RandomDelay: 10 * time.Second,
 	})
@@ -279,7 +279,6 @@ func scrapeGitHub() ScrapedData {
 
 
 	for i, user := range users {
-		time.Sleep(3 * time.Second)
 		po := float64(0)
 		row := strings.Split(user,",")
 		record = append(record, row[0])
