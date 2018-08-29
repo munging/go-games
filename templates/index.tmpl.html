@@ -36,7 +36,7 @@
         <script>
             $(document).ready(function() {
                 window.setInterval(function(){
-                    var r = Math.floor(Math.random() * 21);
+                    var r = Math.floor(Math.random() * 24);
                     $("#logo").attr("src", "/static/images/logos/go-games-"+ r +".png")
                 }, 9000);
             });
@@ -107,6 +107,8 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Go Games Points</th>
+                        <th>Rank</th>
                         <th>GitHub User</th>
                         <th>Contributions</th>
                         <th>Repositories</th>
@@ -121,10 +123,19 @@
                         <th>Codecademy Points</th>
                         <th>Badges</th>
                         <th>Day Streak</th>
+                        <!--
+                        <th>Khan Academy Energy Points</th>
+
+                        <th>DataCamp XP</th>
+                        <th>Courses Completed</th>
+                        <th>Exercises Aced</th>
+                        -->
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Go Games Points</th>
+                        <th>Rank</th>
                         <th>GitHub User</th>
                         <th>Contributions</th>
                         <th>Repositories</th>
@@ -139,10 +150,17 @@
                         <th>Codecademy Points</th>
                         <th>Badges</th>
                         <th>Day Streak</th>
+                        <!--
+                        <th>Khan Academy Energy Points</th>
+
+                        <th>DataCamp XP</th>
+                        <th>Courses Completed</th>
+                        <th>Exercises Aced</th>
+                        -->
                     </tr>
                     <!-- include "tablesorter-ignoreRow" class for pager rows in thead -->
                     <tr class="tablesorter-ignoreRow">
-                        <th colspan="14" class="ts-pager form-horizontal">
+                        <th colspan="16" class="ts-pager form-horizontal">
                             <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
                             <button type="button" class="btn prev"><i class="small material-icons">navigate_before</i></button>
                             <span class="pagedisplay"></span>
@@ -164,9 +182,14 @@
                 <tbody>
                     {{range .Data}}
                         <tr>
-                            {{range . }}
+                            {{range $index, $element := . }}
                                 <td>
-                                    {{.}}
+                                    {{if eq $index 1 }}
+                                        <img alt="Level {{$element}}" title="Level {{.}}"
+                                             src="/static/images/ranks/level-{{$element}}.png">
+                                    {{else}}
+                                          {{$element}}
+                                    {{end}}
                                 </td>
                             {{end}}
                         </tr>
