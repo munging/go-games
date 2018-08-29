@@ -53,6 +53,7 @@
         <script>
             $(function() {
 
+
                 $("table").tablesorter({
                     theme : "grey",
 
@@ -106,6 +107,25 @@
         <div>
             <table>
                 <thead>
+                    <tr class="tablesorter-ignoreRow">
+                        <th colspan="16" class="ts-pager form-horizontal">
+                            <button type="button" class="btn first"><i class="small material-icons">first_page</i></button>
+                            <button type="button" class="btn prev"><i class="small material-icons">navigate_before</i></button>
+                            <span class="pagedisplay"></span>
+                            <!-- this can be any element, including an input -->
+                            <button type="button" class="btn next"><i class="small material-icons">navigate_next</i></button>
+                            <button type="button" class="btn last"><i class="small material-icons">last_page</i></button>
+                            <select class="pagesize browser-default" title="Select page size">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100" selected="selected">100</option>
+                            </select>
+                            <select class="pagenum browser-default" title="Select page number"></select>
+                        </th>
+                    </tr>
                     <tr>
                         <th>Go Games Points</th>
                         <th>Rank</th>
@@ -168,12 +188,12 @@
                             <button type="button" class="btn next"><i class="small material-icons">navigate_next</i></button>
                             <button type="button" class="btn last"><i class="small material-icons">last_page</i></button>
                             <select class="pagesize browser-default" title="Select page size">
-                                <option selected="selected" value="10">10</option>
+                                <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
                                 <option value="40">40</option>
                                 <option value="50">50</option>
-                                <option value="100">100</option>
+                                <option value="100" selected="selected">100</option>
                             </select>
                             <select class="pagenum browser-default" title="Select page number"></select>
                         </th>

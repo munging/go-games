@@ -120,7 +120,7 @@ func scrapeGitHub() ScrapedData {
 		// Filter domains affected by this rule
 		DomainGlob:  "codewars.com/*",
 		// Set a delay between requests to these domains
-		Delay: 15 * time.Second,
+		Delay: 25 * time.Second,
 		// Add an additional random delay
 		RandomDelay: 35 * time.Second,
 	})
