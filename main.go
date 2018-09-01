@@ -277,7 +277,7 @@ func scrapeGitHub() ScrapedData {
 		record = append(record, e.Text)
 	})
 
-	for i, user := range users {
+	for i, user := range users[1:] {
 		po := float64(0)
 		row := strings.Split(user,",")
 		record = append(record, row[0])
@@ -308,48 +308,60 @@ func scrapeGitHub() ScrapedData {
 		if len(row) == 1 {
 			record = append(record, "","","","","","","","","")
 		}
-		for j:=1; j<15; j++ {
-			if j != 5 && j != 6 && j != 8 && record[j] != "" {
-				points, _ := strconv.ParseFloat(record[j], 32)
-				po += points
-			}
-		}
-		record = append(record, "", "")
-		copy(record[2:], record[0:])
-		record[0] = strconv.FormatFloat(po, 'f', 0, 32)
-		badge := "1"
-		if po > 100000 {
-			badge = "14"
-		} else if po > 80000 {
-			badge = "13"
-		} else if po > 60000 {
-			badge = "12"
-		} else if po > 50000 {
-			badge = "11"
-		} else if po > 40000 {
-			badge = "10"
-		} else if po > 30000 {
-			badge = "9"
-		} else if po > 20000 {
-			badge = "8"
-		} else if po > 15000 {
-			badge = "7"
-		} else if po > 12000 {
-			badge = "6"
-		} else if po > 10000 {
-			badge = "5"
-		} else if po > 7500 {
-			badge = "4"
-		} else if po > 3500 {
-			badge = "3"
-		} else if po > 1000 {
-			badge = "2"
+		// catch timeouts and index out of bounds in the next else block and remove user
+		if len(record) < 14 {
+			record = nil
 		} else {
-			badge = "1"
+			for j:=1; j<15; j++ {
+				if j != 5 && j != 6 && j != 8 && record[j] != "" {
+					points, _ := strconv.ParseFloat(record[j], 32)
+					if j == 1 {
+						points *= 5
+					} else if j == 9 {
+						points *= 100
+					} else if j == 10 {
+						points *= 10
+					}
+					po += points
+				}
+			}
+			record = append(record, "", "")
+			copy(record[2:], record[0:])
+			record[0] = strconv.FormatFloat(po, 'f', 0, 32)
+			badge := "1"
+			if po > 2000000 {
+				badge = "14"
+			} else if po > 1000000 {
+				badge = "13"
+			} else if po > 500000 {
+				badge = "12"
+			} else if po > 200000 {
+				badge = "11"
+			} else if po > 100000 {
+				badge = "10"
+			} else if po > 50000 {
+				badge = "9"
+			} else if po > 25000 {
+				badge = "8"
+			} else if po > 15000 {
+				badge = "7"
+			} else if po > 12000 {
+				badge = "6"
+			} else if po > 10000 {
+				badge = "5"
+			} else if po > 7500 {
+				badge = "4"
+			} else if po > 3500 {
+				badge = "3"
+			} else if po > 1000 {
+				badge = "2"
+			} else {
+				badge = "1"
+			}
+			record[1] = badge
+			ret[i] = record
+			record = nil
 		}
-		record[1] = badge
-		ret[i] = record
-		record = nil
 	}
 	d := ScrapedData{Data: ret}
 	return d
