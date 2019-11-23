@@ -37,5 +37,5 @@ go run main.go
 
 Then open your browser point to http://localhost:9000
 
-Demo application also available at [go-games.herokuapp.com](https://go-games.herokuapp.com)
+
 
